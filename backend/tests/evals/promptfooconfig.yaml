@@ -1,0 +1,42 @@
+providers:
+  - file://provider.ts
+
+prompts:
+  - "list tech conferences"
+
+tests:
+  - description: "Coverage Devoxx France, Voxxed Days, conférences régionales + LLM judge"
+    assert:
+      - type: javascript
+        value: |
+          if (!output.includes('Devoxx France'))
+            throw new Error(`"Devoxx France" absent — reçu : ${output}`);
+          return true;
+
+      - type: javascript
+        value: |
+          if (!output.includes('Voxxed'))
+            throw new Error(`"Voxxed" absent — reçu : ${output}`);
+          return true;
+
+      - type: javascript
+        value: |
+          if (output.length < 40)
+            throw new Error(`Seulement ${output.length}/40 trouvées`);
+          return true;
+
+      - type: javascript
+        value: |
+          const REGIONAL = [
+            'BreizhCamp', 'BDX I/O', 'Sunny Tech','Human Talks Nantes', 'Nantes JUG', 'Codeurs en Seine', 'Touraine Tech', 'SnowCamp', 'MixIT', 'DevFest Nantes', 'Agile Tour Bordeaux', 'Riviera DEV',
+          ];
+          const found = REGIONAL.filter(name => output.includes(name));
+          if (found.length < 12)
+            throw new Error(`Seulement ${found.length}/12 conférences régionales — trouvées : [${found.join(', ')}]`);
+          return true;
+
+      - type: llm-rubric
+        value: >
+          Every item in this list is a technology-focused conference or developer event.
+          Reject if any item is not a tech conference.
+        provider: mistral:mistral-large-latest
