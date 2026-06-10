@@ -1,0 +1,48 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "chrome",
+      "request": "launch",
+      "name": "Chrome: Frontend",
+      "url": "http://localhost:5173",
+      "webRoot": "${workspaceFolder}/frontend",
+      "sourceMapPathOverrides": {
+        "/@fs/*": "${workspaceFolder}/*"
+      },
+      "preLaunchTask": "Frontend: dev server"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Eval: get-all-speakers",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "promptfoo",
+        "eval",
+        "--config",
+        "tests/evals/get-all-speakers.yaml",
+        "--max-concurrency",
+        "1"
+      ],
+      "cwd": "${workspaceFolder}/backend",
+      "envFile": "${workspaceFolder}/backend/.env",
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Eval: get-all-conferences",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "promptfoo",
+        "eval",
+        "--config",
+        "tests/evals/get-all-conferences.yaml"
+      ],
+      "cwd": "${workspaceFolder}/backend",
+      "envFile": "${workspaceFolder}/backend/.env",
+      "console": "integratedTerminal"
+    }
+  ]
+}

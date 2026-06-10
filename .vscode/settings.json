@@ -1,0 +1,8 @@
+{
+  "vitest.projects": [
+    {
+      "name": "frontend",
+      "root": "${workspaceFolder}/frontend"
+    }
+  ]
+}
