@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Conference } from '../../domain/conferences/Conference'
+import type { Conference } from '../../../domain/conferences/Conference'
 
 defineProps<{ conferences: Conference[] }>()
 </script>

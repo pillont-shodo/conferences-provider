@@ -2,7 +2,7 @@ import type { Conference } from '../domain/conferences/Conference'
 import type { IConferencesClient } from './IConferencesClient'
 
 const CONFERENCES: Conference[] = [
-  { name: 'Devoxx France test' },
+  { name: 'Devoxx France' },
   { name: 'BreizhCamp' },
   { name: 'BDX I/O' },
   { name: 'Sunny Tech' },

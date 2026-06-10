@@ -2,7 +2,7 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import ConferenceListComponent from './ConferenceListComponent.vue'
-import type { Conference } from '../../domain/conferences/Conference.js'
+import type { Conference } from '../../../domain/conferences/Conference.js'
 
 const conferences: Conference[] = [
   { name: 'Devoxx France' },

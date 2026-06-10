@@ -3,8 +3,8 @@ import { describe, it, expect, beforeEach } from 'vitest'
 import { createApp, defineComponent, ref, type Ref } from 'vue'
 import { useListConferences } from './UseListConferences'
 import { conferencesClientKey } from '../../injectionKeys'
-import type { IConferencesClient } from '../../clients/IConferencesClient'
-import type { Conference } from '../../domain/conferences/Conference'
+import type { IConferencesClient } from '../../../infrastructure/IConferencesClient'
+import type { Conference } from '../../../domain/conferences/Conference'
 
 const fakeConferences: Conference[] = [
   { name: 'Devoxx France' },

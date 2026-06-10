@@ -1,7 +1,7 @@
 import { ref, inject, onMounted, type Ref, computed, type ComputedRef } from 'vue'
 import { conferencesClientKey } from '../../injectionKeys'
-import type { Conference } from '../../domain/conferences/Conference'
-import { filterConferences } from '../../domain/conferences/ConferencesFunctions'
+import type { Conference } from '../../../domain/conferences/Conference'
+import { filterConferences } from '../../../domain/conferences/filter/FilterConferencesFunctions'
 
 export function useListConferences(term: Ref<string>): ComputedRef<Conference[]> {
   const client = inject(conferencesClientKey)!

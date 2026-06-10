@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
-import { filterConferences } from './ConferencesFunctions'
-import type { Conference } from './Conference'
+import { filterConferences } from './FilterConferencesFunctions'
+import type { Conference } from '../Conference'
 
 const conferences: Conference[] = [
   { name: 'Devoxx France' },

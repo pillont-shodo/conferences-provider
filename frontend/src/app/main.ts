@@ -1,8 +1,8 @@
 import { createApp } from 'vue'
 import './style.css'
-import App from './app.vue'
-import { FakeConferencesClient } from './clients/FakeConferencesClient'
-import { HttpConferencesClient } from './clients/HttpConferencesClient'
+import App from './App.vue'
+import { FakeConferencesClient } from '../infrastructure/FakeConferencesClient.ts'
+import { HttpConferencesClient } from '../infrastructure/HttpConferencesClient.ts'
 import { conferencesClientKey } from './injectionKeys'
 
 const app = createApp(App)
