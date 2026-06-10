@@ -1,0 +1,20 @@
+providers:
+  - file://get-all-speakers-provider.ts
+
+prompts:
+  - "list speakers"
+
+tests:
+  - description: "getAllSpeakers retourne au moins 10 speakers liés au groupe Shodo"
+    assert:
+      - type: javascript
+        value: |
+          if (output.length < 10)
+            throw new Error(`Seulement ${output.length}/10 speakers`);
+          return true;
+
+      - type: javascript
+        value: |
+          if (output.some(speaker => speaker.company.toLowerCase().indexOf("shodo") === -1))
+            throw new Error(`un speaker n'est pas lié au groupe Shodo : ${speaker.firstname} ${speaker.lastname} (${speaker.company})`);
+          return true;

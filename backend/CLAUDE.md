@@ -36,14 +36,29 @@ import { buildApp } from './app.js'       // ✅
 import { buildApp } from './app'          // ❌ erreur Node16
 ```
 
+## Collects (src/collects/)
+
+Chaque collect = un dossier `src/collects/<nom>/` avec un fichier TypeScript.
+
+| Collect | Fichier | Pattern |
+|---|---|---|
+| `getConferences()` | `get-conferences/get-conferences.ts` | Appel LLM simple, JSON |
+| `getAllSpeakers(conferences)` | `get-all-speakers/get-all-speakers.ts` | Tool calling + web scraping |
+
+**Pattern collect simple :** appel Mistral avec `responseFormat: { type: "json_object" }`, `temperature: 0.2`, parser la réponse.
+
+**Pattern collect tool calling (web scraping) :** boucle multi-tour — le LLM appelle `fetch_page(url)`, Node.js scrape avec `axios` + `cheerio`, retourner le texte nettoyé au LLM. Voir `get-all-speakers.ts` comme référence.
+
 ## Evals (promptfoo)
 
 Les evals sont dans `tests/evals/` et utilisent [promptfoo](https://promptfoo.dev/) (TypeScript-natif).
 
 ```
 tests/evals/
-├── promptfooconfig.yaml   # config des assertions
-└── provider.ts            # custom provider — appelle getConferences() directement
+├── get-all-conferences.yaml
+├── get-all-conferences-provider.ts
+├── get-all-speakers.yaml
+└── get-all-speakers-provider.ts
 ```
 
 **Provider** : doit être une **classe** (pas un objet littéral) car promptfoo l'instancie avec `new`.
@@ -51,5 +66,10 @@ tests/evals/
 **Assertions** : utiliser `throw new Error(message)` pour afficher la raison d'échec dans le terminal. `return { reason }` n'est pas affiché.
 
 **LLM judge** : `mistral:mistral-large-latest` — nécessite `MISTRAL_API_KEY` dans `.env`.
+
+**Rate limit** : `getAllSpeakers` fait plusieurs appels Mistral (tool calling). Toujours tester cet eval avec `--max-concurrency 1` :
+```bash
+npx promptfoo eval --config tests/evals/get-all-speakers.yaml --max-concurrency 1
+```
 
 La CI (`/.github/workflows/evals.yml`) tourne les evals sur chaque push/PR sur `main`. Le secret `MISTRAL_API_KEY` doit être configuré dans GitHub → Settings → Secrets.
