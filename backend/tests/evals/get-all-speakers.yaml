@@ -5,7 +5,7 @@ prompts:
   - "list speakers"
 
 tests:
-  - description: "getAllSpeakers retourne au moins 10 speakers liés au groupe Shodo"
+  - description: "getAllSpeakers retourne au moins 10 speakers"
     assert:
       - type: javascript
         value: |
@@ -15,6 +15,76 @@ tests:
 
       - type: javascript
         value: |
+          const invalidSpeakers = output.filter(u => /\d/.test(u.lastname) || /\d/.test(u.firstname));
+          if (invalidSpeakers.length > 0)
+            throw new Error(`some name is not valid: ${invalidSpeakers.map(u => `${u.firstname} ${u.lastname}`).join(", ")}`);
+          return true;
+
+      - type: javascript
+        value: |
+          const invalidSpeakers = output.filter(u => u.lastname === undefined || u.firstname === undefined);
+          if (invalidSpeakers.length > 0)
+            throw new Error(`some name is not valid: ${invalidSpeakers.map(u => `${u.firstname} ${u.lastname}`).join(", ")}`);
+          return true;
+
+      - type: javascript
+        value: |
+          const invalidSpeakers = output.filter(u => u.lastname === "" || u.firstname === "");
+          if (invalidSpeakers.length > 0)
+            throw new Error(`some name is not valid: ${invalidSpeakers.map(u => `${u.firstname} ${u.lastname}`).join(", ")}`);
+          return true;
+
+      - type: javascript
+        value: |
+          const invalidSpeakers = output.filter(u => u.lastname === "" || u.firstname === "");
+          if (invalidSpeakers.length > 0)
+            throw new Error(`some information is missing for some speakers : ${invalidSpeakers.map(u => `${u.firstname} ${u.lastname}`).join(", ")}`);
+          return true;
+
+      - type: javascript
+        value: |
           if (output.some(speaker => speaker.company.toLowerCase().indexOf("shodo") === -1))
             throw new Error(`un speaker n'est pas lié au groupe Shodo : ${speaker.firstname} ${speaker.lastname} (${speaker.company})`);
+          return true;
+
+      - type: javascript
+        value: |
+          const speakersFromRennes = output.filter(u => u.company.toLowerCase().indexOf("shodo rennes") !== -1);
+          if (speakersFromRennes.length === 0)
+            throw new Error(`Aucun speaker n'est lié à Shodo Rennes`);
+          return true;
+
+      - type: javascript
+        value: |
+          const speakersFromNantes = output.filter(u => u.company.toLowerCase().indexOf("shodo nantes") !== -1);
+          if (speakersFromNantes.length === 0)
+            throw new Error(`Aucun speaker n'est lié à Shodo Nantes`);
+          return true;
+
+      - type: javascript
+        value: |
+          const speakersFromStudio = output.filter(u => u.company.toLowerCase().indexOf("shodo studio") !== -1);
+          if (speakersFromStudio.length === 0)
+            throw new Error(`Aucun speaker n'est lié à Shodo Studio`);
+          return true;
+
+      - type: javascript
+        value: |
+          const lastnameWithLowercaseWords = output.filter(u => u.lastname.split(" ").some(w=> w[0] !== w[0].toUpperCase()));
+          if (lastnameWithLowercaseWords.length > 0)
+            throw new Error(`Les noms doivent commencer par une majuscule : ${lastnameWithLowercaseWords.map(u => u.lastname).join(", ")}`);
+          return true;
+
+      - type: javascript
+        value: |
+          const firstnameWithLowercaseWords = output.filter(u => u.firstname.split(" ").some(w=> w[0] !== w[0].toUpperCase()));
+          if (firstnameWithLowercaseWords.length > 0)
+            throw new Error(`Les prénoms doivent commencer par une majuscule : ${firstnameWithLowercaseWords.map(u => u.firstname).join(", ")}`);
+          return true;
+
+      - type: javascript
+        value: |
+          const companyWithLowercaseWords = output.filter(u => u.company.split(" ").some(w=> w[0] !== w[0].toUpperCase()));
+          if (companyWithLowercaseWords.length > 0)
+            throw new Error(`Les noms de société doivent commencer par une majuscule : ${companyWithLowercaseWords.map(u => u.company).join(", ")}`);
           return true;

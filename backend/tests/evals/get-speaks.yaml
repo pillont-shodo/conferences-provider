@@ -1,0 +1,14 @@
+providers:
+  - file://get-speaks-provider.ts
+
+prompts:
+  - "list speaks"
+
+tests:
+  - description: "getSpeaks retourne au moins 5 elements"
+    assert:
+      - type: javascript
+        value: |
+          if (output.length < 5)
+            throw new Error(`Seulement ${output.length}/5 speaks`);
+          return true;

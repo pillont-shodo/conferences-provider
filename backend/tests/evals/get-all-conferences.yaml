@@ -1,5 +1,5 @@
 providers:
-  - file://provider.ts
+  - file://get-all-conferences-provider.ts
 
 prompts:
   - "list tech conferences"

@@ -43,6 +43,23 @@
       "cwd": "${workspaceFolder}/backend",
       "envFile": "${workspaceFolder}/backend/.env",
       "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Eval: get-speaks",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "promptfoo",
+        "eval",
+        "--config",
+        "tests/evals/get-speaks.yaml",
+        "--max-concurrency",
+        "1"
+      ],
+      "cwd": "${workspaceFolder}/backend",
+      "envFile": "${workspaceFolder}/backend/.env",
+      "console": "integratedTerminal"
     }
   ]
 }

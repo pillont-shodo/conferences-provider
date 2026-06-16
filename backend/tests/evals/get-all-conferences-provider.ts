@@ -8,6 +8,6 @@ export default class GetConferencesProvider implements ApiProvider {
 
   async callApi(): Promise<ProviderResponse> {
     const conferences = await getConferences()
-    return { output: conferences.join('\n') }
+    return { output: conferences.map((c) => c.name).join('\n') }
   }
 }

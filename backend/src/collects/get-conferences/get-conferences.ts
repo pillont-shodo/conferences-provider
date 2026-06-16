@@ -1,6 +1,7 @@
 import { Mistral } from "@mistralai/mistralai";
+import { Conference } from "./conference.js";
 
-export async function getConferences(): Promise<string[]> {
+export async function getConferences(): Promise<Conference[]> {
 
   const client = new Mistral({
     apiKey: process.env.MISTRAL_API_KEY,
@@ -38,5 +39,5 @@ export async function getConferences(): Promise<string[]> {
   const content = response.choices?.[0]?.message?.content;
   if (typeof content !== "string") throw new Error("Unexpected response format from Mistral");
   const { conferences }: { conferences: string[] } = JSON.parse(content);
-  return conferences;
+  return conferences.map((name) => ({ name }));
 }

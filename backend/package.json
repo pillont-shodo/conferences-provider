@@ -8,7 +8,8 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "typecheck": "tsc --noEmit",
-    "eval": "promptfoo eval --config tests/evals/get-all-conferences.yaml && promptfoo eval --config tests/evals/get-all-speakers.yaml"
+    "test": "vitest run",
+    "eval": "promptfoo eval --config tests/evals/get-all-conferences.yaml && promptfoo eval --config tests/evals/get-all-speakers.yaml && promptfoo eval --config tests/evals/get-speaks.yaml --max-concurrency 1"
   },
   "engines": {
     "node": ">=20"
@@ -20,16 +21,15 @@
   "dependencies": {
     "@fastify/sensible": "^6.0.4",
     "@mistralai/mistralai": "^2.2.5",
-    "axios": "^1.17.0",
-    "cheerio": "^1.2.0",
+    "@slack/web-api": "^7.16.0",
     "fastify": "^5.8.5",
     "fastify-plugin": "^5.1.0"
   },
   "devDependencies": {
-    "@types/cheerio": "^0.22.35",
     "@types/node": "^25.9.1",
     "promptfoo": "^0.121.14",
     "tsx": "^4.22.4",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.9"
   }
 }

@@ -5,7 +5,7 @@ export default class GetAllSpeakersProvider implements ApiProvider {
   id() { return 'getAllSpeakers' }
 
   async callApi(): Promise<ProviderResponse> {
-    const speakers = await getAllSpeakers(['Devoxx France', 'BreizhCamp', 'Sunny Tech'])
+    const speakers = await getAllSpeakers()
     return { output: speakers }
   }
 }

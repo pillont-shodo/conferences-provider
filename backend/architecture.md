@@ -6,6 +6,7 @@
 - **Framework** : [Fastify 5](https://fastify.dev/) — HTTP server performant avec validation intégrée
 - **Langage** : TypeScript 6 en mode strict (`module: Node16`, `"type": "module"` — projet ESM)
 - **Dev runner** : `tsx watch` (transpilation esbuild, rechargement automatique)
+- **Tests unitaires** : [Vitest](https://vitest.dev/) — fichiers `*.test.ts` co-localisés avec la source, exclus du build TS
 
 ## Structure des dossiers
 
@@ -70,4 +71,5 @@ Copier `.env.example` en `.env` pour le développement local.
 | `npm run build`   | Compile TypeScript → `dist/`            |
 | `npm run start`   | Lance le build compilé                   |
 | `npm run typecheck` | Vérifie les types sans émettre de fichiers |
+| `npm run test`    | Lance les tests unitaires (Vitest)       |
 | `npm run eval`    | Lance les evals promptfoo                |
